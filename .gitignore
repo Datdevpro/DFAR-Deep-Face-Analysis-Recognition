@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+p_venv/
+models/*.dat
+models/*.bz2
+models/*.pt
+data/
+*.joblib
+*.sqlite3
+.idea/
+.vscode/
