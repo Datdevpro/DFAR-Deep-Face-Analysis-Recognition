@@ -46,7 +46,8 @@ class Plan1CascadeDetector:
         or ``(None, None)`` if no face.
         """
         rgb = bgr[:, :, ::-1].copy()
-        boxes, probs, _ = self._mtcnn.detect(rgb, landmarks=False)
+        out = self._mtcnn.detect(rgb, landmarks=False)
+        boxes, probs = out[0], out[1]
         if boxes is None or len(boxes) == 0:
             return None, None
         areas = (boxes[:, 2] - boxes[:, 0]) * (boxes[:, 3] - boxes[:, 1])
@@ -56,7 +57,8 @@ class Plan1CascadeDetector:
     def detect_all(self, bgr: np.ndarray) -> tuple[list[np.ndarray], list[float]]:
         """All boxes sorted by descending area."""
         rgb = bgr[:, :, ::-1].copy()
-        boxes, probs, _ = self._mtcnn.detect(rgb, landmarks=False)
+        out = self._mtcnn.detect(rgb, landmarks=False)
+        boxes, probs = out[0], out[1]
         if boxes is None or len(boxes) == 0:
             return [], []
         order = np.argsort(-((boxes[:, 2] - boxes[:, 0]) * (boxes[:, 3] - boxes[:, 1])))
