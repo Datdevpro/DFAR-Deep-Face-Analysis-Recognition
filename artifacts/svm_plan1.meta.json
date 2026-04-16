@@ -1,0 +1,20 @@
+{
+  "threshold": -0.3598876276251459,
+  "train_samples": 1311,
+  "val_samples": 328,
+  "requested_device": "cuda",
+  "resolved_device": "cuda",
+  "device_info": "cuda:0 (NVIDIA GeForce RTX 4060)",
+  "dataset_images": 1686,
+  "dataset_classes": 63,
+  "kept_embeddings": 1639,
+  "classes_with_embeddings": 63,
+  "skipped_no_face": 47,
+  "skipped_embed_fail": 0,
+  "train_accuracy": 1.0,
+  "val_accuracy": 0.9847560975609756,
+  "avg_accuracy": 0.9923780487804879,
+  "train_hinge_loss": 0.0,
+  "val_hinge_loss": 0.07248199174359822,
+  "avg_hinge_loss": 0.03624099587179911
+}

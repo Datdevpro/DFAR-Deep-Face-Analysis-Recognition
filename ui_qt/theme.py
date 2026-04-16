@@ -19,10 +19,47 @@ QWidget {{
     font-family: "Segoe UI", "Inter", sans-serif;
     font-size: 13px;
 }}
-QFrame#headerpanel, QFrame#sidebar, QFrame#mainpanel, QFrame#settingspanel, QFrame#hudcard {{
+QMenuBar {{
+    background: {PANEL};
+    color: {TEXT};
+    border-bottom: 1px solid {BORDER};
+    padding: 4px 8px;
+}}
+QMenuBar::item:selected {{
+    background: {PANEL_ALT};
+}}
+QMenu {{
+    background: {PANEL};
+    color: {TEXT};
+    border: 1px solid {BORDER};
+}}
+QMenu::item:selected {{
+    background: {PANEL_ALT};
+}}
+QFrame#headerpanel, QFrame#sidebar, QFrame#mainpanel, QFrame#settingspanel, QFrame#hudcard,
+QFrame#navRail, QFrame#panelCard {{
     background: {PANEL};
     border: 1px solid {BORDER};
     border-radius: 10px;
+}}
+QFrame#navRail {{
+    border-radius: 12px;
+}}
+QGroupBox {{
+    font-weight: 600;
+    color: {TEXT};
+    border: 1px solid {BORDER};
+    border-radius: 10px;
+    margin-top: 12px;
+    padding: 12px 10px 10px 10px;
+    background: {PANEL_ALT};
+}}
+QGroupBox::title {{
+    subcontrol-origin: margin;
+    left: 12px;
+    padding: 0 6px;
+    color: {MUTED};
+    font-size: 12px;
 }}
 QLabel {{
     color: {TEXT};
@@ -54,6 +91,38 @@ QLineEdit, QComboBox, QTextEdit {{
     border-radius: 8px;
     padding: 6px;
     selection-background-color: {ACCENT};
+}}
+QComboBox::drop-down {{
+    border: none;
+    width: 24px;
+}}
+QComboBox::down-arrow {{
+    width: 10px;
+    height: 10px;
+}}
+QComboBox QAbstractItemView {{
+    color: {TEXT};
+    background: #1E2636;
+    border: 1px solid {ACCENT};
+    border-radius: 6px;
+    selection-background-color: {ACCENT};
+    selection-color: #ffffff;
+    outline: none;
+    padding: 4px;
+}}
+QComboBox QAbstractItemView::item {{
+    color: {TEXT};
+    padding: 6px 10px;
+    min-height: 26px;
+    border-radius: 4px;
+}}
+QComboBox QAbstractItemView::item:hover {{
+    background: #2a3857;
+    color: #ffffff;
+}}
+QComboBox QAbstractItemView::item:selected {{
+    background: {ACCENT};
+    color: #ffffff;
 }}
 QTextEdit#logPanel {{
     font-family: "Cascadia Code", "JetBrains Mono", monospace;
@@ -94,6 +163,78 @@ QPushButton#danger {{
 }}
 QPushButton#danger:hover {{
     background: #642631;
+}}
+QPushButton#run {{
+    background: {SUCCESS};
+    color: #0B1220;
+    border: 1px solid {SUCCESS};
+    font-weight: 700;
+}}
+QPushButton#run:hover {{
+    background: #5ED492;
+}}
+QPushButton#save {{
+    background: {ACCENT};
+    color: #0B1220;
+    border: 1px solid {ACCENT};
+    font-weight: 600;
+}}
+QPushButton#save:hover {{
+    background: #75A8FF;
+}}
+QPushButton#nav {{
+    background: transparent;
+    border: 1px solid transparent;
+    text-align: left;
+    padding: 10px 12px;
+}}
+QPushButton#nav:checked {{
+    background: #232d42;
+    border: 1px solid {ACCENT};
+    color: {TEXT};
+}}
+QPushButton#nav:hover {{
+    border: 1px solid {BORDER};
+    background: #1c2434;
+}}
+QScrollArea {{
+    border: none;
+    background: transparent;
+}}
+QListWidget {{
+    background: {PANEL_ALT};
+    border: 1px solid {BORDER};
+    border-radius: 8px;
+}}
+QListWidget::item:selected {{
+    background: #2a3857;
+}}
+QSlider::groove:horizontal {{
+    height: 6px;
+    background: {PANEL_ALT};
+    border: 1px solid {BORDER};
+    border-radius: 3px;
+}}
+QSlider::handle:horizontal {{
+    width: 14px;
+    margin: -5px 0;
+    border-radius: 7px;
+    background: {ACCENT};
+}}
+QCheckBox {{
+    color: {MUTED};
+    spacing: 8px;
+}}
+QCheckBox::indicator {{
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1px solid {BORDER};
+    background: {PANEL_ALT};
+}}
+QCheckBox::indicator:checked {{
+    background: {ACCENT};
+    border-color: {ACCENT};
 }}
 QProgressBar {{
     color: {TEXT};
