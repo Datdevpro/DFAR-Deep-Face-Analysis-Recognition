@@ -94,7 +94,7 @@ DFAR-Deep-Face-Analysis-Recognition/
 
 ---
 ## GUI demo
-![DFAR Desktop GUI](DFAR-Deep-Face-Analysis-Recognition\assets\GUi_img.jpg)
+![DFAR Desktop GUI](assets/GUi_img.jpg)
 ---
 ## Installation
 
