@@ -83,7 +83,7 @@ DFAR-Deep-Face-Analysis-Recognition/
 
 ---
 
-## Demo Flow
+## WorkFlow
 
 1. Download required dlib models
 2. Prepare dataset (`data/raw/<employee_id>/*.jpg`)
@@ -93,7 +93,9 @@ DFAR-Deep-Face-Analysis-Recognition/
 6. (Optional) Use Qt UI for end-to-end operation
 
 ---
-
+## GUI demo
+![DFAR Desktop GUI](DFAR-Deep-Face-Analysis-Recognition\assets\GUi_img.jpg)
+---
 ## Installation
 
 ### 1) Create/activate environment
