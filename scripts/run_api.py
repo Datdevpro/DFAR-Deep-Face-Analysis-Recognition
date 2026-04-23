@@ -12,4 +12,8 @@ if str(ROOT) not in sys.path:
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("plan1_app.integration.api:app", host="0.0.0.0", port=8000, reload=False)
+    host = "127.0.0.1"
+    port = 8000
+    print(f"API running at: http://{host}:{port}")
+    print(f"API docs at:    http://{host}:{port}/docs")
+    uvicorn.run("plan1_app.integration.api:app", host=host, port=port, reload=False)
