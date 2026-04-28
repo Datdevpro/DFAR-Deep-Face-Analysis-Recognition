@@ -179,7 +179,23 @@ python scripts/demo_webcam.py --artifact artifacts/svm_plan1.joblib --device cud
 
 Press `q` to exit.
 
-### F. Run API server
+### F. Validate model performance and plot metrics
+
+```bash
+python scripts/validate_performance.py --artifact artifacts/svm_plan1.joblib --device cuda
+```
+
+Generated outputs:
+
+- `reports/validation/validation_report.json`
+- `reports/validation/accuracy_loss.png`
+- `reports/validation/confusion_matrix_val.png`
+- `reports/validation/margin_distribution_val.png`
+
+Note: this project uses Linear SVM, so there is no epoch-by-epoch deep-learning curve.
+The script plots train-vs-validation metrics (accuracy/loss) and additional diagnostics.
+
+### G. Run API server
 
 ```bash
 python scripts/run_api.py
@@ -188,10 +204,13 @@ python scripts/run_api.py
 Health check:
 
 - `GET /health`
+- `GET /v1/health`
+- `GET /v1/ready`
 
 Recognition endpoint:
 
-- `POST /recognize_upload` (multipart image)
+- `POST /v1/recognition/image` (recommended, multipart image)
+- `POST /recognize_upload` (legacy compatibility)
 
 Optional environment variables:
 
@@ -199,11 +218,85 @@ Optional environment variables:
 - `PLAN1_DEVICE` (`cpu` or `cuda`)
 - `PLAN1_DB_PATH` (sqlite path)
 
-### G. Run Qt UI
+### H. Run Qt UI
 
 ```bash
 python scripts/ui_launcher_qt.py
 ```
+
+---
+
+## API Design (What it is, how it is built, how to use it)
+
+This project exposes a REST API using FastAPI so external clients (web/mobile/desktop/UI scripts) can perform model-based face recognition over HTTP.
+
+### What this API provides
+
+- **System endpoints**
+  - `GET /v1/health` -> service alive
+  - `GET /v1/ready` -> model artifact loaded and recognizer ready
+
+- **Testing/recognition endpoint**
+  - `POST /v1/recognition/image`
+  - Input: image file (`multipart/form-data`)
+  - Output: JSON prediction result from the current model
+
+### How it is created in this project
+
+- API app: `plan1_app/integration/api.py`
+- Entrypoint script: `scripts/run_api.py`
+- Recognizer path:
+  1. Decode uploaded image with OpenCV
+  2. Run `Plan1Recognizer.recognize_frame(...)`
+  3. Return JSON-safe output (without raw embedding)
+  4. Include `model_id` and `latency_ms`
+
+### Usage examples
+
+Run server:
+
+```bash
+python scripts/run_api.py
+```
+
+Interactive docs:
+
+- [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+Test with curl:
+
+```bash
+curl -X POST "http://127.0.0.1:8000/v1/recognition/image" \
+  -F "file=@path/to/test.jpg"
+```
+
+Example response:
+
+```json
+{
+  "ok": true,
+  "reason": "match",
+  "employee_id": "employee_001",
+  "margin": 0.82,
+  "det_prob": 0.99,
+  "box": [101.0, 64.0, 230.0, 221.0],
+  "note": null,
+  "model_id": "svm_plan1.joblib",
+  "latency_ms": 41
+}
+```
+
+Failure examples:
+
+- `reason=no_face`
+- `reason=embed_failed`
+- `reason=below_threshold`
+
+Environment variables:
+
+- `PLAN1_SVM_PATH` -> custom artifact path
+- `PLAN1_DEVICE` -> `cpu` or `cuda`
+- `PLAN1_DB_PATH` -> sqlite file for optional frame logging
 
 ---
 
