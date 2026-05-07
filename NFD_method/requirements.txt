@@ -1,0 +1,19 @@
+# NFD Method — Face Attendance System
+# Python >= 3.10 recommended
+
+# Core vision
+opencv-python>=4.8.0,<4.10
+numpy>=1.26.0,<2
+
+# ONNX runtime (CPU by default; for CUDA: install onnxruntime-gpu instead)
+onnxruntime>=1.17.0
+
+# InsightFace — used for SCRFD model loading and landmark-based alignment
+insightface>=0.7.3
+
+# Vector search
+faiss-cpu>=1.7.4
+# NOTE: for GPU FAISS: install faiss-gpu instead of faiss-cpu
+
+# Utilities (InsightFace dependency)
+Pillow>=10.0.0
